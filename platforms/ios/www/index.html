@@ -51,10 +51,13 @@
         <div id="content_town" style="text-align:center; color:#fff;"></div>
         <div id="content_postcode" style="text-align:center; color:#fff;"></div>
         <div id="locateme" style="margin-left:177px;margin-top:20px;"><img src="img/gps.png" width="60"/></div>
-        <div id="demo"></div>
+        <!-- test divs 
+        <div id="lat" style="text-align:center; color:#fff;"></div>
+        <div id="long" style="text-align:center; color:#fff;"></div>-->
+
         <div id="test"></div>
         <br />
-        <form>
+        <form id="form">
             <input type="number" name="beacon latitude" id="lat"/><br />
             <input type="number" name="beacon longitude" id="long"/><br /><br />
             <input type="text" name="beacon reference id" id="beaconRef"/><br />
@@ -71,6 +74,9 @@
         var businessAddress;
         var businessTown
         var businessPostcode;
+
+        var businessLatitude;
+        var businessLongtitude;
 
 
         $('#searchval').bind('input', function(){
@@ -127,8 +133,13 @@
         $('#overlay #content_postcode').html('<div>'+business.postcode+'</div>');
         businessPostcode = business.postcode;
 
-        //$('#overlay #test').html('<div>'+position.coords.latitude+'</div>');
+        $('#overlay #lat').html('<div>'+business.Latitude+'</div>');
+        businessLatitude = business.Latitude;
+        $('#overlay #long').html('<div>'+business.Longtitude+'</div>');
+        businessLongtitude = business.Longtitude;
        
+       //$('#overlay #form').populate("business.lat");
+        //businessLat = business.lat;
 
         $('#overlay').toggle();
      }   
@@ -147,7 +158,8 @@
             //
             var onSuccess = function(position) {
 
-                $('#test').append(position.coords.latitude);
+                $('#lat').val(position.coords.latitude);
+                $('#long').val(position.coords.longitude);
 
 
                 /*alert('Latitude: '          + position.coords.latitude          + '\n' +
@@ -172,7 +184,7 @@
 
      });
 
-     $('#overlay #submit').on('touchstart', function(){
+     $('#submit').on('touchstart', function(){
         var beaconRef = $('#overlay #beaconRef').val();
 
         var latitude = $('#overlay #lat').val();
@@ -182,14 +194,15 @@
         sendToServer(businessId, beaconRef, latitude, longitude);
      });
 
-     function sendToServer(businessId, beaconRef, lat, long){
+     function sendToServer(businessId, beaconRef, lat, lng){
                  $.ajax({ 
                     type: 'GET', 
-                    url: 'http://portaltest.indestinate.com/ibeacon/appAction/actAddNewBeacon/'+businessId+'/'+beaconRef+'/'+latitude+'/'+longitude+'/',  
+                    url: 'http://portaltest.indestinate.com/ibeacon/appAction/actAddNewBeacon/'+businessId+'/'+beaconRef+'/'+lat+'/'+lng+'/',  
                     dataType: 'jsonp',
                     jsonp:'jsoncallback',
                     success: function (data) {
                         alert('successfully added');
+                        
                     },
                     error: function(data){
                         alert('beacon was not installed');
