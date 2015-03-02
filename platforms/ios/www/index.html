@@ -31,17 +31,18 @@
     </head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <body>
-    <br />
+        <br />
     <h1> iBeacon Installer</h1>
 
     <div id="content">
         <form id="searchCat">
-            Search Business:<br>
+            <p id="srchBus">Search Business:</p><br>
             <input type="text" name="search" id="searchval">
         </form> 
         <ul id="list" style="list-style-type:none;"></ul>
+        <img src="img/logo.png" style="position:center;margin-left:25px;"/>
     </div>
-    <div id="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.90); display:none;">
+    <div id="overlay" name="overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.95); display:none;">
         <div id="close" style="margin:10px;"><img src="img/close.png" width="40"/></div>
         <div id="content_name" style="text-align:center; color:#fff;"></div>
         <div id="content_id" style="text-align:center; color:#fff;"></div>
@@ -50,7 +51,7 @@
         <div id="content_address" style="text-align:center; color:#fff;"></div>
         <div id="content_town" style="text-align:center; color:#fff;"></div>
         <div id="content_postcode" style="text-align:center; color:#fff;"></div>
-        <div id="locateme" style="margin-left:177px;margin-top:20px;"><img src="img/gps.png" width="60"/></div>
+        <div id="locateme" style="margin-left:130px;margin-top:20px;"><img src="img/gps.png" width="60"/></div>
         <!-- test divs 
         <div id="lat" style="text-align:center; color:#fff;"></div>
         <div id="long" style="text-align:center; color:#fff;"></div>-->
@@ -97,7 +98,7 @@
                         if(data.length > 0){
                             for(var i=0; i < data.length; i++){
                                 var item = data[i];
-                                $('#list').append('<li id='+item.id+' style="padding:40px; border-top:2px solid #000">'+item.name+'</li>');
+                                $('#list').append('<li id='+item.id+' style="padding:30px; border-top:2px solid #000">'+item.name+'</li>');
                             
                                 $('#'+item.id).on('touchstart', (function(business){
                                      return function(){
@@ -146,6 +147,8 @@
 
      $('#overlay #close').on('touchstart', function(){
         $('#overlay').toggle();
+        document.getElementById("form").reset();
+
      });
 
      $('#overlay #locateme').on('touchstart', function(){
@@ -202,7 +205,10 @@
                     jsonp:'jsoncallback',
                     success: function (data) {
                         alert('successfully added');
-                        
+                        document.getElementById("form").reset();
+
+
+
                     },
                     error: function(data){
                         alert('beacon was not installed');

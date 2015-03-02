@@ -4,6 +4,7 @@ body{
     height: 100%;
     margin: 0;
     padding: 0;
+    background:#fff;
 }
 h1
 {
@@ -16,5 +17,23 @@ h1
 {
 	font-size:20px;
 	font-weight:bold;
-	margin:auto;	
+	margin-left:85px;	
+}
+#searchval
+{
+	margin-left:10px;
+}
+#lat , #long , #beaconRef
+{
+	margin-left:90px;	
+}
+#submit
+{
+	margin-left:130px;
+}
+#srchBus
+{
+	font-size:16px;
+	font-weight:bold;
+	position:center;
 }
